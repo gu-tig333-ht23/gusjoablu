@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'main.dart';
 import 'homePage.dart';
 
-class Page2 extends StatefulWidget {
-  @override
-  State<Page2> createState() => _Page2State();
-}
-
-class _Page2State extends State<Page2> {
-  TextEditingController textEditingController = TextEditingController(text: '');
-  String newTask = '';
-
+class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    TextEditingController textEditingController = TextEditingController();
+
     return Scaffold(
       backgroundColor: Color(0xFFFFFBFC),
       appBar: AppBar(
@@ -33,18 +28,14 @@ class _Page2State extends State<Page2> {
               controller: textEditingController,
               decoration: InputDecoration(
                 hintText: 'What would you like to add?',
-
                 border: OutlineInputBorder(),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange),
                 ),
-
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                       color: Colors.orange), // Set the border color when focued
                 ),
-
-                //Clear button för att .clear allt som står skrivet i textfield.
                 suffixIcon: IconButton(
                   color: const Color.fromARGB(255, 0, 0, 0),
                   onPressed: () {
@@ -63,22 +54,14 @@ class _Page2State extends State<Page2> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                //addTask = textEditingController.text;
                 MaterialButton(
-                  //Sätter variabel på controller
                   onPressed: () {
-                    setState(() {
-                      newTask = textEditingController.text;
+                    //Adding new item as textfield
+                    var newItem = textEditingController.text;
+                    context.read<MyState>().addItem(newItem, false);
 
-                      //Pushar newTask till MyHomepage
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MyHome(newTask)),
-                      );
-
-                      textEditingController.clear();
-                    });
+                    //pop function.
+                    Navigator.of(context).pop();
                   },
 
                   //Push knappen "Add It" style.
