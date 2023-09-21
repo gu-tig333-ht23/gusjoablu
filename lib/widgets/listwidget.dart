@@ -1,18 +1,15 @@
-import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:template/main.dart';
+import 'package:template/data.dart';
 
 class MyWidget extends StatelessWidget {
-  String name;
-  bool isChecked;
+  String toDo_title;
+  bool done;
 
-  MyWidget(this.name, this.isChecked);
+  MyWidget(this.toDo_title, this.done);
 
   @override
   Widget build(BuildContext context) {
-    var persons = context.watch<MyState>().persons;
-
     return Padding(
       padding: EdgeInsets.only(top: 10, bottom: 10),
       child: Padding(
@@ -25,9 +22,9 @@ class MyWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Checkbox(
                   activeColor: Color.fromARGB(255, 27, 165, 48),
-                  value: isChecked,
-                  onChanged: (newstatus) {
-                    context.read<MyState>().changeItemStatus(name, isChecked);
+                  value: done,
+                  onChanged: (notDone) {
+                    context.read<MyState>().changeItemStatus(toDo_title, done);
                     //Anrop en funktion som set state.
                   }),
             ),
@@ -38,10 +35,10 @@ class MyWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    toDo_title,
                     style: TextStyle(
                         fontSize: 30,
-                        decoration: isChecked
+                        decoration: done
                             ? TextDecoration.lineThrough
                             : TextDecoration.none),
                   ),
@@ -52,8 +49,7 @@ class MyWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
                 onPressed: () {
-                  context.read<MyState>().removeItem(name, isChecked);
-                  print(name);
+                  context.read<MyState>().removeItem(toDo_title, done);
                 },
                 icon: Icon(Icons.close),
               ),
@@ -64,6 +60,3 @@ class MyWidget extends StatelessWidget {
     );
   }
 }
-
-// Things to do widget.
-

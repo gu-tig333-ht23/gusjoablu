@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'main.dart';
-import 'homePage.dart';
+import 'package:template/Api.dart';
+import 'package:template/model.dart';
 
 class Page2 extends StatelessWidget {
   @override
@@ -55,10 +54,19 @@ class Page2 extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 MaterialButton(
-                  onPressed: () {
+                  onPressed: () async {
                     //Adding new item as textfield
+                    String id = '123';
                     var newItem = textEditingController.text;
-                    context.read<MyState>().addItem(newItem, false);
+                    var done = false;
+                    ToDo todo = ToDo(id, newItem, done);
+                    var this_todo = todo.toJson();
+
+                    await addToDo(todo);
+                    print(
+                        'Running addToDo function with this input: $this_todo');
+
+                    //context.read<MyState>().addItem(id, newItem, false);
 
                     //pop function.
                     Navigator.of(context).pop();

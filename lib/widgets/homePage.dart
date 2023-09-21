@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'main.dart';
+import 'package:template/data.dart';
 import 'workshopPage.dart';
-import 'widgets.dart';
+import 'listwidget.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,12 +12,11 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHome extends StatelessWidget {
-  //Building widget
   @override
 
-//Build
+// Homepage widget
   Widget build(BuildContext context) {
-    var persons = context.watch<MyState>().persons;
+    var todos = context.watch<MyState>().todos;
 
     return Scaffold(
       backgroundColor: Color(0xFFFFFBFC),
@@ -25,12 +24,14 @@ class MyHome extends StatelessWidget {
         title: Text('Things To Do'),
         backgroundColor: Color(0xFF285238),
         centerTitle: true,
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 10),
-            child: Icon(Icons.more_horiz),
-          ),
-        ],
+        leading: IconButton(
+          // Use the leading property
+          onPressed: () {
+            //Testar api
+            context.read<MyState>().fetchTodos();
+          },
+          icon: Icon(Icons.abc),
+        ),
       ),
 
 //Floating action button
@@ -50,11 +51,11 @@ class MyHome extends StatelessWidget {
 
 //Listview
       body: ListView(
-        children: persons
+        children: todos
             .map(
-              (person) => Column(
+              (ToDo) => Column(
                 children: [
-                  MyWidget(person.name, person.isChecked),
+                  MyWidget(ToDo.title, ToDo.done),
                   Divider(
                     color: Colors.grey,
                     thickness: 1.0,
