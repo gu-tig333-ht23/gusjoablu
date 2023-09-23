@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:template/Api.dart';
+import 'package:provider/provider.dart';
+import 'package:template/data.dart';
 import 'package:template/model.dart';
 
 class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    TextEditingController textEditingController = TextEditingController();
+    final TextEditingController textEditingController = TextEditingController();
+
+    var id = '';
 
     return Scaffold(
       backgroundColor: Color(0xFFFFFBFC),
@@ -55,18 +58,16 @@ class Page2 extends StatelessWidget {
               children: [
                 MaterialButton(
                   onPressed: () async {
-                    //Adding new item as textfield
-                    String id = '123';
-                    var newItem = textEditingController.text;
+                    var title = textEditingController.text;
                     var done = false;
-                    ToDo todo = ToDo(id, newItem, done);
-                    var this_todo = todo.toJson();
 
-                    await addToDo(todo);
-                    print(
-                        'Running addToDo function with this input: $this_todo');
+                    ToDo todo = ToDo(id, title, done);
+                    print('WorkShopPage:');
+                    print(todo.toJson());
 
-                    //context.read<MyState>().addItem(id, newItem, false);
+                    context.read<MyState>().addToDo(todo);
+
+                    //context.read<MyState>().addItem(id, newItem, false):
 
                     //pop function.
                     Navigator.of(context).pop();

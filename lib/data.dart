@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:template/api.dart' as api;
 import 'model.dart';
-import 'api.dart';
 
 class MyState extends ChangeNotifier {
   List<ToDo> _todos = [];
@@ -8,42 +8,29 @@ class MyState extends ChangeNotifier {
   List<ToDo> get todos => _todos;
 
   void fetchTodos() async {
-    print('RUNNING FETCHTODOS');
-    var _todos = await getToDos();
+    print('Running fetchTodos() in fetchTodo');
+    var todos = await api.getToDos();
+    _todos = todos;
+
+    print(_todos.length);
 
     notifyListeners();
   }
 
   //AddItem (toDo)
-  void addItem(id, title, done) {
-    _todos.add(ToDo(
-      id,
-      title,
-      done,
-    ));
-
-    notifyListeners();
+  void addToDo(todo) async {
+    await api.addToDo(todo);
+    fetchTodos();
   }
 
-  //RemoveItem (toDo)
-  void removeItem(title, done) {
-    int indexToRemove = _todos.indexWhere((ToDo) => ToDo.title == ToDo.title);
+  void removeToDo(String id) async {
+    int indexToRemove = _todos.indexWhere((todo) => todo.id == id);
 
     if (indexToRemove != -1) {
+      await api.removeToDo(id);
       _todos.removeAt(indexToRemove);
-
-      notifyListeners();
-    }
-  }
-
-//ChangeItemStatus (of toDO.done)
-  void changeItemStatus(title, done) {
-    int indexToToggle = _todos.indexWhere((ToDo) => ToDo.title == ToDo.title);
-
-    if (indexToToggle != -1) {
-      _todos[indexToToggle].done = !_todos[indexToToggle].done;
-
-      notifyListeners();
+      print('Removed');
+      fetchTodos();
     }
   }
 }

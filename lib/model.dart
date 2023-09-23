@@ -1,5 +1,5 @@
 class ToDo {
-  final String? id;
+  final String id;
   final String title;
   bool done;
 
@@ -10,6 +10,6 @@ class ToDo {
   }
 
   Map<String, dynamic> toJson() {
-    return {'title': title, 'done': done};
+    return {'id': id, 'title': title, 'done': done};
   }
 }

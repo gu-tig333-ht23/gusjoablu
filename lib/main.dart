@@ -6,7 +6,8 @@ import 'widgets/homePage.dart';
 void main() {
   MyState state = MyState();
 
-  print('RUNNING STATE.FETCH()');
+  print('----Running fetchNotes in MyState------');
+  state.fetchTodos();
 
   runApp(
     ChangeNotifierProvider(create: (context) => state, child: MyApp()),

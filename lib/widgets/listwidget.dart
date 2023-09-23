@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:template/data.dart';
 
+// ignore: must_be_immutable
 class MyWidget extends StatelessWidget {
+  String id;
   String toDo_title;
   bool done;
 
-  MyWidget(this.toDo_title, this.done);
+  MyWidget(this.id, this.toDo_title, this.done);
 
   @override
   Widget build(BuildContext context) {
+    id = id;
     return Padding(
       padding: EdgeInsets.only(top: 10, bottom: 10),
       child: Padding(
@@ -24,7 +27,7 @@ class MyWidget extends StatelessWidget {
                   activeColor: Color.fromARGB(255, 27, 165, 48),
                   value: done,
                   onChanged: (notDone) {
-                    context.read<MyState>().changeItemStatus(toDo_title, done);
+                    //context.read<MyState>().changeItemStatus(toDo_title, done);
                     //Anrop en funktion som set state.
                   }),
             ),
@@ -49,7 +52,7 @@ class MyWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
                 onPressed: () {
-                  context.read<MyState>().removeItem(toDo_title, done);
+                  context.read<MyState>().removeToDo(id);
                 },
                 icon: Icon(Icons.close),
               ),

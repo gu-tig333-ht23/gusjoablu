@@ -4,6 +4,8 @@ import 'package:template/data.dart';
 import 'workshopPage.dart';
 import 'listwidget.dart';
 
+//NOTE IMPORT API
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,9 @@ class MyHome extends StatelessWidget {
           // Use the leading property
           onPressed: () {
             //Testar api
-            context.read<MyState>().fetchTodos();
+            context
+                .read<MyState>()
+                .removeToDo('f4cc4e4e-bddd-4adf-b1bc-75f2f20635f2');
           },
           icon: Icon(Icons.abc),
         ),
@@ -53,9 +57,9 @@ class MyHome extends StatelessWidget {
       body: ListView(
         children: todos
             .map(
-              (ToDo) => Column(
+              (todo) => Column(
                 children: [
-                  MyWidget(ToDo.title, ToDo.done),
+                  MyWidget(todo.id, todo.title, todo.done),
                   Divider(
                     color: Colors.grey,
                     thickness: 1.0,

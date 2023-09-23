@@ -8,24 +8,32 @@ const String apiKey = 'b7d40a83-1b71-4e65-9324-53ffca2c2772';
 
 //Take a look into the list of todos.
 Future<List<ToDo>> getToDos() async {
-  print('RUNNING GETTODOS');
+  print('Making request to api:');
   http.Response response =
       await http.get(Uri.parse('$ENDPOINT/todos?key=$apiKey'));
-
-  print('Key: $apiKey');
   String body = response.body;
+
   print(body);
 
-  print('http awaited...');
+  List<dynamic> jsonResponse = jsonDecode(body);
+  List<ToDo> todosJson =
+      jsonResponse.map((json) => ToDo.fromJson(json)).toList();
 
-  Map<String, dynamic> jsonResponse = jsonDecode(body);
-  List todosJson = jsonResponse['todos'];
-  return todosJson.map((json) => ToDo.fromJson(json)).toList();
+  return todosJson;
 }
 
-Future<void> addToDo(ToDo todo) async {
+Future<void> addToDo(todo) async {
   http.Response response = await http.post(
     Uri.parse('$ENDPOINT/todos?key=$apiKey'),
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: jsonEncode(todo.toJson()),
+  );
+}
+
+Future<void> removeToDo(String id) async {
+  http.Response response = await http.delete(
+    Uri.parse('$ENDPOINT/todos/$id?key=$apiKey'), // Updated URL
   );
 }
