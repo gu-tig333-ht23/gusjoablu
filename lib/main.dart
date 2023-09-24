@@ -6,7 +6,6 @@ import 'widgets/homePage.dart';
 void main() {
   MyState state = MyState();
 
-  print('----Running fetchNotes in MyState------');
   state.fetchTodos();
 
   runApp(

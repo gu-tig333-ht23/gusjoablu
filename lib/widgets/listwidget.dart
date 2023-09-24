@@ -5,10 +5,10 @@ import 'package:template/data.dart';
 // ignore: must_be_immutable
 class MyWidget extends StatelessWidget {
   String id;
-  String toDo_title;
+  String title;
   bool done;
 
-  MyWidget(this.id, this.toDo_title, this.done);
+  MyWidget(this.id, this.title, this.done);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class MyWidget extends StatelessWidget {
                   activeColor: Color.fromARGB(255, 27, 165, 48),
                   value: done,
                   onChanged: (notDone) {
-                    //context.read<MyState>().changeItemStatus(toDo_title, done);
-                    //Anrop en funktion som set state.
+                    //passing id to putTodo in data.dart
+                    context.read<MyState>().putTodo(id);
                   }),
             ),
             Expanded(
@@ -38,7 +38,7 @@ class MyWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    toDo_title,
+                    title,
                     style: TextStyle(
                         fontSize: 30,
                         decoration: done
@@ -52,7 +52,7 @@ class MyWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
                 onPressed: () {
-                  context.read<MyState>().removeToDo(id);
+                  context.read<MyState>().removeTodo(id);
                 },
                 icon: Icon(Icons.close),
               ),

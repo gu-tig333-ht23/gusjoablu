@@ -6,14 +6,10 @@ import 'model.dart';
 const String ENDPOINT = 'https://todoapp-api.apps.k8s.gu.se';
 const String apiKey = 'b7d40a83-1b71-4e65-9324-53ffca2c2772';
 
-//Take a look into the list of todos.
 Future<List<ToDo>> getToDos() async {
-  print('Making request to api:');
   http.Response response =
       await http.get(Uri.parse('$ENDPOINT/todos?key=$apiKey'));
   String body = response.body;
-
-  print(body);
 
   List<dynamic> jsonResponse = jsonDecode(body);
   List<ToDo> todosJson =
@@ -22,8 +18,9 @@ Future<List<ToDo>> getToDos() async {
   return todosJson;
 }
 
-Future<void> addToDo(todo) async {
-  http.Response response = await http.post(
+//remove unused variables for clean code.
+Future<void> addTodo(todo) async {
+  await http.post(
     Uri.parse('$ENDPOINT/todos?key=$apiKey'),
     headers: {
       'Content-Type': 'application/json',
@@ -32,8 +29,17 @@ Future<void> addToDo(todo) async {
   );
 }
 
-Future<void> removeToDo(String id) async {
-  http.Response response = await http.delete(
-    Uri.parse('$ENDPOINT/todos/$id?key=$apiKey'), // Updated URL
+Future<void> removeTodo(String id) async {
+  await http.delete(
+    Uri.parse('$ENDPOINT/todos/$id?key=$apiKey'),
   );
+}
+
+Future<void> putTodo(ToDo todo) async {
+  String id = todo.id;
+  await http.put(Uri.parse('$ENDPOINT/todos/$id?key=$apiKey'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(todo.toJson()));
 }

@@ -4,7 +4,9 @@ import 'package:template/data.dart';
 import 'workshopPage.dart';
 import 'listwidget.dart';
 
-//NOTE IMPORT API
+// NOTE IMPORT API
+
+const List<String> list = <String>['All', 'Done', 'Undone'];
 
 class MyApp extends StatelessWidget {
   @override
@@ -15,10 +17,8 @@ class MyApp extends StatelessWidget {
 
 class MyHome extends StatelessWidget {
   @override
-
-// Homepage widget
   Widget build(BuildContext context) {
-    var todos = context.watch<MyState>().todos;
+    var todos = context.watch<MyState>().filteredTodos;
 
     return Scaffold(
       backgroundColor: Color(0xFFFFFBFC),
@@ -26,22 +26,40 @@ class MyHome extends StatelessWidget {
         title: Text('Things To Do'),
         backgroundColor: Color(0xFF285238),
         centerTitle: true,
-        leading: IconButton(
-          // Use the leading property
-          onPressed: () {
-            //Testar api
-            context
-                .read<MyState>()
-                .removeToDo('f4cc4e4e-bddd-4adf-b1bc-75f2f20635f2');
-          },
-          icon: Icon(Icons.abc),
-        ),
+        actions: [
+          PopupMenuButton<String>(
+            icon: Icon(
+              Icons.menu_open_rounded,
+              color: Colors.white,
+            ),
+            onSelected: (String value) {
+              if (value == 'Undone') {
+                print('Selected Value $value');
+                context.read<MyState>().filterValues(false);
+              } else if (value == 'Done') {
+                print('Selected Value $value');
+                context.read<MyState>().filterValues(true);
+              } else {
+                print('Selected Value $value');
+                context.read<MyState>().filterValues(null);
+              }
+            },
+            itemBuilder: (BuildContext context) {
+              return list.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ],
       ),
 
-//Floating action button
+      // Floating action button
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //Navigator page 2
+          // Navigator page 2
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -53,7 +71,7 @@ class MyHome extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
 
-//Listview
+      // Listview
       body: ListView(
         children: todos
             .map(

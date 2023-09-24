@@ -7,7 +7,6 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController textEditingController = TextEditingController();
-
     var id = '';
 
     return Scaffold(
@@ -62,10 +61,7 @@ class Page2 extends StatelessWidget {
                     var done = false;
 
                     ToDo todo = ToDo(id, title, done);
-                    print('WorkShopPage:');
-                    print(todo.toJson());
-
-                    context.read<MyState>().addToDo(todo);
+                    context.read<MyState>().addTodo(todo);
 
                     //context.read<MyState>().addItem(id, newItem, false):
 
