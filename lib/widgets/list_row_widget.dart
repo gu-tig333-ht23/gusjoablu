@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:template/data.dart';
+import 'package:template/todo_state.dart';
 
 // ignore: must_be_immutable
-class MyWidget extends StatelessWidget {
+class ListWidget extends StatelessWidget {
   String id;
   String title;
   bool done;
 
-  MyWidget(this.id, this.title, this.done);
+  ListWidget(this.id, this.title, this.done);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class MyWidget extends StatelessWidget {
                   value: done,
                   onChanged: (notDone) {
                     //passing id to putTodo in data.dart
-                    context.read<MyState>().putTodo(id);
+                    context.read<ToDoState>().putTodo(id);
                   }),
             ),
             Expanded(
@@ -52,7 +52,7 @@ class MyWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
                 onPressed: () {
-                  context.read<MyState>().removeTodo(id);
+                  context.read<ToDoState>().removeTodo(id);
                 },
                 icon: Icon(Icons.close),
               ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:template/data.dart';
-import 'widgets/homePage.dart';
+import 'package:template/todo_state.dart';
+import 'widgets/homepage.dart';
 
 void main() {
-  MyState state = MyState();
+  ToDoState state = ToDoState();
 
   state.fetchTodos();
 

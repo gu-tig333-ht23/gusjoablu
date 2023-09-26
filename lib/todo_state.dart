@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:template/api.dart' as api;
-import 'model.dart';
+import 'todo.dart';
 
-class MyState extends ChangeNotifier {
+class ToDoState extends ChangeNotifier {
   List<ToDo> _todos = [];
   bool? _filterDone;
 

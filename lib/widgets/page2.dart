@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:template/data.dart';
-import 'package:template/model.dart';
+import 'package:template/todo_state.dart';
+import 'package:template/todo.dart';
 
 class Page2 extends StatelessWidget {
   @override
@@ -61,7 +61,7 @@ class Page2 extends StatelessWidget {
                     var done = false;
 
                     ToDo todo = ToDo(id, title, done);
-                    context.read<MyState>().addTodo(todo);
+                    context.read<ToDoState>().addTodo(todo);
 
                     //context.read<MyState>().addItem(id, newItem, false):
 
