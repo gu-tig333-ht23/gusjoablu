@@ -6,19 +6,10 @@ import 'page2.dart';
 
 const List<String> list = <String>['All', 'Done', 'Undone'];
 
-class MyApp extends StatelessWidget {
+class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHome(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class MyHome extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+    //todos set as state filteradtodos's list values.
     var todos = context.watch<ToDoState>().filteredTodos;
 
     return Scaffold(
@@ -29,10 +20,13 @@ class MyHome extends StatelessWidget {
         centerTitle: true,
         actions: [
           PopupMenuButton<String>(
+            //Menubutton
             icon: Icon(
               Icons.menu_open_rounded,
               color: Colors.white,
             ),
+
+            //Onselected values
             onSelected: (String value) {
               if (value == 'Undone') {
                 print('Selected Value $value');
@@ -45,6 +39,7 @@ class MyHome extends StatelessWidget {
                 context.read<ToDoState>().filterValues(null);
               }
             },
+            //Itembuilder for filtered list
             itemBuilder: (BuildContext context) {
               return list.map((String choice) {
                 return PopupMenuItem<String>(
@@ -56,6 +51,8 @@ class MyHome extends StatelessWidget {
           ),
         ],
       ),
+
+      //Floating action button for page2 navigator.
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Navigator page 2
@@ -69,12 +66,14 @@ class MyHome extends StatelessWidget {
         backgroundColor: Color(0xFFE88D67),
         child: const Icon(Icons.add),
       ),
+
+      // Listview
       body: ListView(
         children: todos
             .map(
               (todo) => Column(
                 children: [
-                  ListWidget(todo.id, todo.title, todo.done),
+                  ListRowWidget(todo.id, todo.title, todo.done),
                   Divider(
                     color: Colors.grey,
                     thickness: 1.0,

@@ -18,7 +18,6 @@ Future<List<ToDo>> getToDos() async {
   return todosJson;
 }
 
-//remove unused variables for clean code.
 Future<void> addTodo(todo) async {
   await http.post(
     Uri.parse('$endPoint/todos?key=$apiKey'),
