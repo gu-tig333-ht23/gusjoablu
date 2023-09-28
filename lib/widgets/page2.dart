@@ -34,8 +34,7 @@ class Page2 extends StatelessWidget {
                   borderSide: BorderSide(color: Colors.orange),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Colors.orange), // Set the border color when focued
+                  borderSide: BorderSide(color: Colors.orange),
                 ),
                 suffixIcon: IconButton(
                   color: const Color.fromARGB(255, 0, 0, 0),
@@ -58,18 +57,18 @@ class Page2 extends StatelessWidget {
                 MaterialButton(
                   onPressed: () async {
                     var title = textEditingController.text;
+                    //Setting the initial bool value of false.
                     var done = false;
 
                     ToDo todo = ToDo(id, title, done);
+                    //Set state
                     context.read<ToDoState>().addTodo(todo);
 
-                    //context.read<MyState>().addItem(id, newItem, false):
-
-                    //pop function.
+                    //Pop function
                     Navigator.of(context).pop();
                   },
 
-                  //Push knappen "Add It" style.
+                  //Button "Add It" style.
                   color: Color.fromARGB(255, 0, 0, 0),
                   textColor: Colors.white,
                   shape: RoundedRectangleBorder(

@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:template/todo_state.dart';
 
 // ignore: must_be_immutable
-class ListWidget extends StatelessWidget {
+class ListRowWidget extends StatelessWidget {
   String id;
   String title;
   bool done;
 
-  ListWidget(this.id, this.title, this.done);
+  ListRowWidget(this.id, this.title, this.done);
 
   @override
   Widget build(BuildContext context) {

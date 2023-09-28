@@ -45,13 +45,12 @@ class ToDoState extends ChangeNotifier {
     int indexToToggle = _todos.indexWhere((todo) => todo.id == id);
 
     if (indexToToggle != -1) {
-      // Toggle the 'done' value
       _todos[indexToToggle].done = !_todos[indexToToggle].done;
 
       print('ID Found: bool value changed....');
-      print(_todos[indexToToggle].toJson()); // Print the updated todo
+      print(_todos[indexToToggle].toJson()); 
       await api
-          .putTodo(_todos[indexToToggle]); // Send the updated todo to the API
+          .putTodo(_todos[indexToToggle]);
 
       fetchTodos();
     }
